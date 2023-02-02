@@ -1,0 +1,4 @@
+img.profile-image  {
+    image-rendering: pixelated;
+    display: block;
+}
