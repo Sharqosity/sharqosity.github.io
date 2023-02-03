@@ -1,0 +1,8 @@
+How to run:
+python3 -m http.server
+http://[::]:8000/scenes
+Hard reload on scene change
+
+Need to fix:
+Index of refraction (below 1.0?)
+Shadow samples passing through glass

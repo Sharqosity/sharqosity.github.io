@@ -1,0 +1,9 @@
+Uniform and jittered antialiasing are both implemented.
+	- In the scene, set antiAliasing = 1 for uniform, antiAliasing = 2 for jittered, and antiAliasing = 0 for no antialiasing.
+	- In the scene, set superSamplingScale to determine how many samples are taken for antialiasing. 2 = 4 per pixel, 3 = 9 per pixel, 4 = 16 per pixel, etc.
+Ambient occlusion
+	- In the scene, set ambientOcclusionSamples to determine how many ambient occlusion rays are sent out for each shading point.
+	- See 4.ball_arealight.html for an example scene.
+Image based lighting
+	- In the scene, set environment to the path of the light probe.
+	- See image_based_lighting.html and image_based_lighting2.html for example scenes.
