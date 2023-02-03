@@ -70,9 +70,8 @@ export function render(sceneDef) {
 	let idx = 0;
 	let chunksize = 10; // render 10 rows at a time
 
-	console.log('Raytracing started...');
-
 	function chunk() {
+		document.getElementById('status').innerHTML = 'Raytracing started...';
 		// 	render a chunk of rows
 		for (let j = row; j < row + chunksize && j < imageHeight; j++) {
 			for (let i = 0; i < imageWidth; i++, idx += 4) { // i loop
@@ -119,7 +118,7 @@ export function render(sceneDef) {
 			ctx2d.putImageData(image, 0, 0); // display intermediate image
 		} else {
 			ctx2d.putImageData(image, 0, 0); // display final image
-			console.log('Done.')
+			document.getElementById('status').innerHTML = 'Done.';
 		}
 
 
