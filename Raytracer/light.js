@@ -1,4 +1,4 @@
-import * as THREE from '../three/src/Three.js';
+import * as THREE from './three/src/Three.js';
 
 
 /* LightSample class:
@@ -82,8 +82,3 @@ export function createAreaLight(center, size, intensity, Ns, lights) {
 		}
 	}
 }
-
-/* ========================================
- * You can define additional Light classes,
- * as long as each implements getLight function.
- * ======================================== */

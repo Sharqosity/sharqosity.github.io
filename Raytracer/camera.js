@@ -1,4 +1,4 @@
-import * as THREE from '../three/src/Three.js';
+import * as THREE from './three/src/Three.js';
 import { Ray } from './raytracer.js';
 
 export class PinholeCamera {
@@ -48,8 +48,3 @@ export class PinholeCamera {
 		return new Ray(this.eye, direction);
 	}
 }
-
-/* ========================================
- * You can define additional Camera classes,
- * as long as each implements getCameraRay function.
- * ======================================== */
