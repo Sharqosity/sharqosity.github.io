@@ -1,10 +1,8 @@
-import * as THREE from './../three/src/Three.js';
-import { PinholeCamera } from './../camera.js';
-import { render } from './../raytracer.js';
-import { sceneDef } from './../sceneDef.js';
+import * as THREE from '../three/src/Three.js';
+import { PinholeCamera } from '../camera.js';
+import { render } from '../raytracer.js';
+import { sceneDef } from '../sceneDef.js';
 import { Sphere } from './../shape.js';
-import { Plane } from './../shape.js';
-import { PointLight } from './../light.js';
 
 
 

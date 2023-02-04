@@ -1,4 +1,6 @@
-import * as THREE from './three/src/Three.js';
+//import * as THREE from './three/src/Three.js';
+import * as THREE from './three/build/three.min.js';
+
 import { RGBELoader } from './three/examples/jsm/loaders/RGBELoader.js';
 
 /* Ray class:
@@ -56,6 +58,8 @@ export function render(sceneDef) {
 	superSamplingScale = sceneDef.superSamplingScale;
 	ambientOcclusionSamples = sceneDef.ambientOcclusionSamples;
 
+	document.getElementById('status').innerHTML = 'Raytracing started...';
+
 	// create canvas of size imageWidth x imageHeight and add to DOM
 	let canvas = document.createElement('canvas');
 	canvas.width = imageWidth;
@@ -71,7 +75,6 @@ export function render(sceneDef) {
 	let chunksize = 10; // render 10 rows at a time
 
 	function chunk() {
-		document.getElementById('status').innerHTML = 'Raytracing started...';
 		// 	render a chunk of rows
 		for (let j = row; j < row + chunksize && j < imageHeight; j++) {
 			for (let i = 0; i < imageWidth; i++, idx += 4) { // i loop
