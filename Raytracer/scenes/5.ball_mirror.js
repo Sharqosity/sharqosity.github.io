@@ -1,4 +1,4 @@
-import * as THREE from '../three/src/Three.js';
+import * as THREE from '../three/build/three.module.js';
 import { PinholeCamera } from '../camera.js';
 import { render } from '../raytracer.js';
 import { sceneDef } from '../sceneDef.js';
@@ -6,29 +6,29 @@ import { Sphere } from './../shape.js';
 
 
 
-let imageWidth = 1920 ;
-let imageHeight = 1080;
+let imageWidth = 480;
+let imageHeight = 480;
 let exposure = 1;
 let backgroundColor = new THREE.Color(0, 0, 0);
 let ambientLight = new THREE.Color(0.01, 0.01, 0.01);
-let maxDepth = 5;
+let maxDepth = 8;
 let camera;
 let shapes = [];
 let lights = [];
 
 
 let environment = 'probes/building_probe.hdr';;
-let antiAliasing = 1;
+let antiAliasing = 2;
 let superSamplingScale = 2;
-let ambientOcclusionSamples = 400;
+let ambientOcclusionSamples = 500;
 
 
 function init() {
     // create camera
-    let eye = new THREE.Vector3(8, 5, 9);
-    let target = new THREE.Vector3(0.25, 0, 0.5);
+    let eye = new THREE.Vector3(10, 1, 10);
+    let target = new THREE.Vector3(0, 0, 0);
     let up = new THREE.Vector3(0, 1, 0);
-    let fov = 18;
+    let fov = 25;
     camera = new PinholeCamera(eye, target, up, fov, imageWidth / imageHeight);
 
     /*
@@ -36,23 +36,24 @@ function init() {
     lights.push(new PointLight(new THREE.Vector3(10, 10, 5), new THREE.Color(100, 96, 88)));
     */
     // create specular sphere
+    let dist = 1.3;
     let radius = 1.25;
-    shapes.push(new Sphere(new THREE.Vector3(radius, 0, -radius), radius,
+    shapes.push(new Sphere(new THREE.Vector3(dist, -dist, 0), radius,
         PhongMaterial(new THREE.Color(1, 0.2, 0.2), new THREE.Color(1, 0.2, 0.2), new THREE.Color(2, 2, 2), 20)));
 
     // create mirror sphere
-    shapes.push(new Sphere(new THREE.Vector3(-radius, 0, radius), radius,
+    shapes.push(new Sphere(new THREE.Vector3(-dist, dist, 0), radius,
         MirrorMaterial(new THREE.Color(1, 1, 1))));
 
-    /*
+    
     // create mirror sphere
-    shapes.push(new Sphere(new THREE.Vector3(-radius, 0, -radius), radius,
+    shapes.push(new Sphere(new THREE.Vector3(-dist, -dist, 0), radius,
         MirrorMaterial(new THREE.Color(1, 1, 1))));
-    */
+    
         
     //create glass sphere
-    shapes.push(new Sphere(new THREE.Vector3(radius, 0, radius), radius,
-    GlassMaterial(new THREE.Color(0, 0, 0), new THREE.Color(1, 1, 1), 0.8)));
+    shapes.push(new Sphere(new THREE.Vector3(dist, dist, 0), radius,
+    GlassMaterial(new THREE.Color(.01, .01, .01), new THREE.Color(1, 1, 1), 1.8)));
     
 
     /*

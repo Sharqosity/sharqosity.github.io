@@ -1,4 +1,4 @@
-import * as THREE from './three/src/Three.js';
+import * as THREE from './three/build/three.module.js';
 import { loadOBJAsMesh } from './simpleOBJMeshLoader.js';
 
 
@@ -193,8 +193,3 @@ export function shapeLoadOBJ(objname, material, smoothnormal, shapes) {
 		}
 	}, function() {}, function() {});
 }
-
-/* ========================================
- * You can define additional Shape classes,
- * as long as each implements intersect function.
- * ======================================== */

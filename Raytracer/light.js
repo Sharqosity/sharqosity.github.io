@@ -1,4 +1,4 @@
-import * as THREE from './three/src/Three.js';
+import * as THREE from './three/build/three.module.js';
 
 
 /* LightSample class:
@@ -50,7 +50,6 @@ export class SpotLight {
 		this.cutoff = cutoff;
 	}
 	getLight(shadingPoint) {
-// ===YOUR CODE STARTS HERE===
 		let ls = new LightSample();
 		ls.direction = this.from.clone().sub(shadingPoint);
 
@@ -68,7 +67,6 @@ export class SpotLight {
 		}
 		return ls;
 
-// ---YOUR CODE ENDS HERE---
 	}
 }
 

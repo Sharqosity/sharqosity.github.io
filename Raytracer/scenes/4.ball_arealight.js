@@ -1,4 +1,4 @@
-import * as THREE from '../three/src/Three.js';
+import * as THREE from '../three/build/three.module.js';
 import { PinholeCamera } from '../camera.js';
 import { render } from '../raytracer.js';
 import { sceneDef } from '../sceneDef.js';

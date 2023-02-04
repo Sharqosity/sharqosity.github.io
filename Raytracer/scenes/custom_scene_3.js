@@ -1,4 +1,4 @@
-import * as THREE from '../three/src/Three.js';
+import * as THREE from '../three/build/three.module.js';
 import { PinholeCamera } from '../camera.js';
 import { render } from '../raytracer.js';
 import { sceneDef } from '../sceneDef.js';
@@ -7,10 +7,8 @@ import { Plane } from '../shape.js';
 import { PointLight } from '../light.js';
 
 
-
-
-let imageWidth = 240;
-let imageHeight = 240;
+let imageWidth = 1280;
+let imageHeight = 720;
 let exposure = 1;
 let backgroundColor = new THREE.Color(0, 0, 0);
 let ambientLight = new THREE.Color(0.01, 0.01, 0.01);
@@ -58,7 +56,7 @@ function init() {
         DiffuseMaterial(new THREE.Color(0.2, 0.2, 0.2), new THREE.Color(0.2, 0.2, 0.2))));
 
     // start ray tracing
-    let sceneObject = new sceneDef(imageWidth, imageHeight, exposure,backgroundColor, ambientLight, maxDepth, camera, shapes, lights, environment, antiAliasing, superSamplingScale, ambientOcclusionSamples);
+    let sceneObject = new sceneDef(imageWidth, imageHeight, exposure, backgroundColor, ambientLight, maxDepth, camera, shapes, lights, environment, antiAliasing, superSamplingScale, ambientOcclusionSamples);
 
     render(sceneObject);
 

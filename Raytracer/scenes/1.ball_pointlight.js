@@ -1,5 +1,5 @@
 
-import * as THREE from '../three/src/Three.js';
+import * as THREE from '../three/build/three.module.js';
 import { PinholeCamera } from '../camera.js';
 import { render } from '../raytracer.js';
 import { sceneDef } from '../sceneDef.js';
@@ -8,11 +8,11 @@ import { Plane } from '../shape.js';
 import { PointLight } from '../light.js';
 
 
-let imageWidth = 640;
-let imageHeight = 480;
+let imageWidth = 320;
+let imageHeight = 240;
 let exposure = 1;
 let backgroundColor = new THREE.Color(0, 0, 0);
-let ambientLight = new THREE.Color(0.01, 0.01, 0.01);
+let ambientLight = new THREE.Color(0.1, 0.1, 0.1);
 
 let maxDepth = 5;
 let camera;
@@ -23,23 +23,23 @@ let environment = null;
 //let environment = 'probes/stpeters_probe.hdr';
 
 
-let antiAliasing = 2;
+let antiAliasing = 0;
 let superSamplingScale = 2;
-let ambientOcclusionSamples = 500;
+let ambientOcclusionSamples = 4;
 
-function init() {		
+function init() {
     // create camera
     let eye = new THREE.Vector3(8, 5, 9);
-    let target = new THREE.Vector3(0.25, 0, 0.5);
+    let target = new THREE.Vector3(0, 0, 0.5);
     let up = new THREE.Vector3(0, 1, 0);
     let fov = 30;
-    camera = new PinholeCamera(eye, target, up, fov, imageWidth/imageHeight);
+    camera = new PinholeCamera(eye, target, up, fov, imageWidth / imageHeight);
 
 
-    
+
     // create a point light
-    lights.push(new PointLight(new THREE.Vector3(10, 10, 5), new THREE.Color(100, 96, 88)));
-    
+    //lights.push(new PointLight(new THREE.Vector3(10, 10, 5), new THREE.Color(100, 96, 88)));
+
     // create shapes and materials
     let center = new THREE.Vector3(-0.25, 0, 0.25);
     let radius = 1.25;
@@ -56,9 +56,9 @@ function init() {
     shapes.push(new Plane(P, N, DiffuseMaterial(ka, kd)));
 
     // start ray tracing
-    let sceneObject = new sceneDef(imageWidth, imageHeight, exposure,backgroundColor, ambientLight, maxDepth, camera, shapes, lights, environment, antiAliasing, superSamplingScale, ambientOcclusionSamples);
+    let sceneObject = new sceneDef(imageWidth, imageHeight, exposure, backgroundColor, ambientLight, maxDepth, camera, shapes, lights, environment, antiAliasing, superSamplingScale, ambientOcclusionSamples);
     render(sceneObject);
-            
+
 }
 
 window.onload = init;

@@ -1,5 +1,5 @@
 //import * as THREE from './three/src/Three.js';
-import * as THREE from './three/build/three.min.js';
+import * as THREE from './three/build/three.module.js';
 
 import { RGBELoader } from './three/examples/jsm/loaders/RGBELoader.js';
 
@@ -243,7 +243,7 @@ function shading(ray, isect) {
 
 		//Shading
 		let l = lightSample.direction.clone();
-		
+
 		let v = ray.direction().clone().negate();
 		let r = reflect(l, n);/*.normalize();*/
 
@@ -270,72 +270,75 @@ function shading(ray, isect) {
 	//Ambient occlusion
 	let AO_factor = new THREE.Color(0, 0, 0);
 	let successfulSamples = 0;
-	//for (let i = 0; i < ambientOcclusionSamples; i = i + 1) {
-	while (successfulSamples < ambientOcclusionSamples) {
+	for (let i = 0; i < ambientOcclusionSamples; i = i + 1) {
+	//while (successfulSamples < ambientOcclusionSamples) {
+		/*
 		//Random spherical coordinates
 		let theta = Math.acos(1 - 2 * Math.random());
 		let phi = 2 * Math.PI * Math.random();
-
 		//Convert spherical coordinates to xyz
 		let x = Math.sin(phi) * Math.cos(theta);
 		let y = Math.cos(theta);
 		let z = Math.sin(phi) * Math.sin(theta);
 
 		let direction = new THREE.Vector3(x, y, z);
+		*/
 
-		
+		const u = (Math.random() - 0.5) * 2;
+		const t = Math.random() * Math.PI * 2;
+		const f = Math.sqrt(1 - u ** 2);
+		let randomDirection = new THREE.Vector3(f * Math.cos(t), f * Math.sin(t), u);
 
-		if (direction.dot(isect.normal) > 0) {
-			let AO_ray = new Ray(isect.position, direction);
+		//if (direction.dot(isect.normal) > 0) {
+		let AO_ray = new Ray(isect.position, randomDirection);
 
+		if (!rayIntersectScene(AO_ray)) { //If AO ray reaches the sky
+			if (environment !== null) { //Get environment color for AO ray
+				let addColor = new THREE.Color(0, 0, 0);
+				let envColor = getFromEnv(randomDirection.x, randomDirection.y, randomDirection.z);
 
-			if (!rayIntersectScene(AO_ray)) { //If AO ray reaaches the sky
+				//Shading
+				let l = randomDirection.clone().normalize();
 
-				if (environment !== null) { //Get environment color for AO ray
-					let addColor = new THREE.Color(0,0,0);
-					let envColor = getFromEnv(x, y, z);
+				let v = ray.direction().clone().negate();
+				//let v = direction.clone().negate().normalize();
+				//let v = reflect(direction.clone(), n).negate();
+				let r = reflect(l, n);/*.normalize();*/
 
-					//Shading
-					let l = direction.clone().normalize();
-
-					let v = ray.direction().clone().negate();
-					//let v = direction.clone().negate().normalize();
-					//let v = reflect(direction.clone(), n).negate();
-					let r = reflect(l, n);/*.normalize();*/
-
-					//Diffuse/lambertian
-					if (material.kd) {
-						addColor.add(
-							envColor.clone()
-								.multiply(material.kd)
-								.multiplyScalar(Math.max(n.clone().dot(l), 0))
-						);
-					}
-
-					//Specular/phong
-					if (material.ks) {
-						addColor.add(
-							envColor.clone()
-								.multiply(material.ks)
-								.multiplyScalar(Math.pow(Math.max(r.clone().dot(v), 0), material.p))
-						);
-					}
-
-					AO_factor.add(addColor);
-					//console.log(addColor);
-				} else { //Normal ambient occlusion
-					AO_factor.add(new THREE.Color(1, 1, 1));
+				//Diffuse/lambertian
+				if (material.kd) {
+					addColor.add(
+						envColor.clone()
+							.multiply(material.kd)
+							.multiplyScalar(Math.max(n.clone().dot(l), 0))
+					);
 				}
 
+				//Specular/phong
+				if (material.ks) {
+					addColor.add(
+						envColor.clone()
+							.multiply(material.ks)
+							.multiplyScalar(Math.pow(Math.max(r.clone().dot(v), 0), material.p))
+					);
+				}
+
+				AO_factor.add(addColor);
+				//console.log(addColor);
+			} else { //Normal ambient occlusion
+				AO_factor.add(new THREE.Color(1, 1, 1));
 			}
-			successfulSamples++;
+
 		}
+		//successfulSamples++;
+		//}
 
 	}
 	if (ambientOcclusionSamples > 0) {
 		let gamma = 1.8;
 
 		AO_factor.multiplyScalar(1 / ambientOcclusionSamples);
+		//console.log(AO_factor);
 		//AO_factor = AO_factor / ambientOcclusionSamples;
 		//color.multiplyScalar(Math.pow(AO_factor, gamma));
 		if (AO_factor.r > 1 || AO_factor.g > 1 || AO_factor.b > 1) {
@@ -348,7 +351,7 @@ function shading(ray, isect) {
 			//AO_factor.setRGB(Math.pow(Math.min(AO_factor.r, 1.0), gamma), Math.pow(Math.min(AO_factor.g, 1.0), gamma), Math.pow(Math.min(AO_factor.b, 1.0), gamma));
 			color.add(AO_factor);
 		}
-		
+
 	}
 
 

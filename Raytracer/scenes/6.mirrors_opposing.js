@@ -1,4 +1,4 @@
-import * as THREE from '../three/src/Three.js';
+import * as THREE from '../three/build/three.module.js';
 import { PinholeCamera } from '../camera.js';
 import { render } from '../raytracer.js';
 import { sceneDef } from '../sceneDef.js';
@@ -18,9 +18,9 @@ let lights = [];
 let environment = null;
 
 
-let antiAliasing = 2;
+let antiAliasing = 0;
 let superSamplingScale = 2;
-let ambientOcclusionSamples = 200;
+let ambientOcclusionSamples = 0;
 
 function init() {		
     // create camera
@@ -31,7 +31,7 @@ function init() {
     camera = new PinholeCamera(eye, target, up, fov, imageWidth/imageHeight);
     
     // create a point light
-    lights.push(new PointLight(new THREE.Vector3(2, 10, 8), new THREE.Color(100, 96, 88)));
+    lights.push(new PointLight(new THREE.Vector3(1, 15, 10), new THREE.Color(100, 96, 88)));
 
     
     // create specular sphere
