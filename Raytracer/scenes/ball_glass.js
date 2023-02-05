@@ -6,10 +6,8 @@ import { Sphere } from '../shape.js';
 import { Plane } from '../shape.js';
 import { createAreaLight } from '../light.js';
 
-
-
-let imageWidth = 320;
-let imageHeight = 240;
+let imageWidth = 640;
+let imageHeight = 640;
 let exposure = 1;
 let backgroundColor = new THREE.Color(0, 0, 0);
 let ambientLight = new THREE.Color(0.01, 0.01, 0.01);
@@ -20,14 +18,14 @@ let lights = [];
 
 
 let environment = null;
-let antiAliasing = 0;
-let superSamplingScale = 0;
+let antiAliasing = 2;
+let superSamplingScale = 2;
 let ambientOcclusionSamples = 0;
 
 function init() {
     // create camera
     let eye = new THREE.Vector3(3, 2, 3);
-    let target = new THREE.Vector3(0, 0, 0);
+    let target = new THREE.Vector3(0, .5, 0);
     let up = new THREE.Vector3(0, 1, 0);
     let fov = 55;
     camera = new PinholeCamera(eye, target, up, fov, imageWidth / imageHeight);
@@ -46,7 +44,7 @@ function init() {
 
     // create glass sphere
     shapes.push(new Sphere(new THREE.Vector3(0, .8, 0), radius,
-        GlassMaterial(new THREE.Color(0, 0, 0), new THREE.Color(1, 1, 1), 2)));
+        GlassMaterial(new THREE.Color(0, 0, 0), new THREE.Color(1, 1, 1), 3)));
 
     // create diffuse plane
     shapes.push(new Plane(new THREE.Vector3(0, -radius, 0), new THREE.Vector3(0, 1, 0),

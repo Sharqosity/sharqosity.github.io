@@ -18,8 +18,8 @@ let shapes = [];
 let lights = [];
 
 let environment = null;
-let antiAliasing = 0;
-let superSamplingScale = 0;
+let antiAliasing = 2;
+let superSamplingScale = 2;
 let ambientOcclusionSamples = 0;
 
 function init() {
@@ -27,7 +27,7 @@ function init() {
     let eye = new THREE.Vector3(0, 2, 10);
     let target = new THREE.Vector3(0, 1, 0);
     let up = new THREE.Vector3(0, 1, 0);
-    let fov = 60;
+    let fov = 55;
     camera = new PinholeCamera(eye, target, up, fov, imageWidth / imageHeight);
 
     // create a point light

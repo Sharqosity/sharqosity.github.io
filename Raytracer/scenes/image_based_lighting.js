@@ -8,8 +8,8 @@ import { Triangle } from '../shape.js';
 import { PointLight } from '../light.js';
 
 
-let imageWidth = 1280;
-let imageHeight = 960;
+let imageWidth = 512;
+let imageHeight = 512;
 let exposure = 1;
 let backgroundColor = new THREE.Color(0, 0, 0);
 let ambientLight = new THREE.Color(0.01, 0.01, 0.01);
@@ -21,7 +21,7 @@ let environment = 'probes/grace_probe.hdr';
 
 let antiAliasing = 2;
 let superSamplingScale = 2;
-let ambientOcclusionSamples = 100;
+let ambientOcclusionSamples = 1500;
 
 
 function init() {
@@ -43,8 +43,7 @@ function init() {
 
     // create mirror sphere
     let radius = 1.25;
-    shapes.push(new Sphere(new THREE.Vector3(0, 0, 0), radius,
-        mirrorSphere));
+    shapes.push(new Sphere(new THREE.Vector3(0, 0, 0), radius, mirrorSphere));
 
     //create glass sphere
     // shapes.push(new Sphere(new THREE.Vector3(0, 0, 0), radius,
@@ -59,10 +58,12 @@ function init() {
     // shapes.push(new Triangle(new THREE.Vector3(-2,-radius,2), new THREE.Vector3(2,-radius,-2), new THREE.Vector3(-2,-radius,-2),
     // PhongMaterial(new THREE.Color(1,0.2,0.2), new THREE.Color(1,0.2,0.2), new THREE.Color(2,2,2), 20)));
 
+    //shapes.push(new Sphere(new THREE.Vector3(0, 0, 0), radius,
+    //GlassMaterial(new THREE.Color(0, 0, 0), new THREE.Color(1, 1, 1), 1.8)));
     shapes.push(new Triangle(new THREE.Vector3(2,-radius,-2), new THREE.Vector3(-2,-radius,2), new THREE.Vector3(2,-radius,2),
-    DiffuseMaterial(ka, kd)));
+    PhongMaterial(new THREE.Color(1.0, 0.3, 0.1), new THREE.Color(1.0, 0.3, 0.1), new THREE.Color(20, 20, 20), 1000)));
     shapes.push(new Triangle(new THREE.Vector3(-2,-radius,2), new THREE.Vector3(2,-radius,-2), new THREE.Vector3(-2,-radius,-2),
-    DiffuseMaterial(ka, kd)));
+    PhongMaterial(new THREE.Color(1.0, 0.3, 0.1), new THREE.Color(1.0, 0.3, 0.1), new THREE.Color(20, 20, 20), 1000)));
     
 
     // create diffuse plane

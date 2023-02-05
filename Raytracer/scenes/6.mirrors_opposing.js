@@ -6,8 +6,8 @@ import { Sphere } from '../shape.js';
 import { Plane } from '../shape.js';
 import { PointLight } from '../light.js';
 
-let imageWidth = 640;
-let imageHeight = 480;
+let imageWidth = 960;
+let imageHeight = 640;
 let exposure = 1;
 let backgroundColor = new THREE.Color(0, 0, 0);
 let ambientLight = new THREE.Color(0.01, 0.01, 0.01);

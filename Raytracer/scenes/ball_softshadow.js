@@ -6,8 +6,6 @@ import { Sphere } from '../shape.js';
 import { Plane } from '../shape.js';
 import { createAreaLight } from '../light.js';
 
-
-
 let imageWidth = 640;
 let imageHeight = 480;
 let exposure = 1;
@@ -19,8 +17,8 @@ let shapes = [];
 let lights = [];
 
 let environment = null;
-let antiAliasing = 0;
-let superSamplingScale = 0;
+let antiAliasing = 2;
+let superSamplingScale = 2;
 let ambientOcclusionSamples = 500;
 
 function init() {
@@ -32,7 +30,7 @@ function init() {
     camera = new PinholeCamera(eye, target, up, fov, imageWidth / imageHeight);
 
     // simulate an area light given its center, size, intensity, and num samples
-    createAreaLight(new THREE.Vector3(10, 10, 5), 5, new THREE.Color(5, 5, 5), 10, lights);
+    createAreaLight(new THREE.Vector3(12, 10, 6), 5, new THREE.Color(5, 5, 5), 8, lights);
 
     // create shapes and materials
     let center = new THREE.Vector3(-0.25, 0, 0.25);

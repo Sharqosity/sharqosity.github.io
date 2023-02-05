@@ -6,12 +6,12 @@ import { Sphere } from '../shape.js';
 import { Plane } from '../shape.js';
 import { PointLight } from '../light.js';
 
-let imageWidth = 640;
-let imageHeight = 480;
+let imageWidth = 960;
+let imageHeight = 960;
 let exposure = 1;
 let backgroundColor = new THREE.Color(0, 0, 0);
 let ambientLight = new THREE.Color(0.01, 0.01, 0.01);
-let maxDepth = 9;
+let maxDepth = 15;
 let camera;
 let shapes = [];
 let lights = [];
@@ -19,8 +19,8 @@ let lights = [];
 //let environment = 'probes/grace_probe.hdr';
 let environment = null;
 
-let antiAliasing = 0;
-let superSamplingScale = 0;
+let antiAliasing = 2;
+let superSamplingScale = 2;
 let ambientOcclusionSamples = 0;
 
 function init() {

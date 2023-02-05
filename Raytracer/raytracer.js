@@ -315,7 +315,7 @@ function shading(ray, isect) {
 
 	}
 	if (ambientOcclusionSamples > 0) {
-		//let gamma = 2.2;
+		let gamma = 2.2;
 		AO_factor.multiplyScalar(2);
 		AO_factor.multiplyScalar(1 / ambientOcclusionSamples);
 		//console.log(AO_factor);
@@ -325,10 +325,8 @@ function shading(ray, isect) {
 			//console.log(AO_factor);
 		}
 		if (environment === null) {
-			//AO_factor.setRGB(Math.pow(Math.min(AO_factor.r, 1.0), 1/gamma), Math.pow(Math.min(AO_factor.g, 1.0), 1/gamma), Math.pow(Math.min(AO_factor.b, 1.0), 1/gamma));
 			color.multiply(AO_factor);
 		} else {
-			//AO_factor.setRGB(Math.pow(Math.min(AO_factor.r, 1.0), gamma), Math.pow(Math.min(AO_factor.g, 1.0), gamma), Math.pow(Math.min(AO_factor.b, 1.0), gamma));
 			color.add(AO_factor);
 		}
 	}

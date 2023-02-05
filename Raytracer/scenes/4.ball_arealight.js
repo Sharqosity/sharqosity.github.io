@@ -1,4 +1,4 @@
-import * as THREE from '../three/build/three.module.js';
+import * as THREE from '../three/src/Three.js';
 import { PinholeCamera } from '../camera.js';
 import { render } from '../raytracer.js';
 import { sceneDef } from '../sceneDef.js';
@@ -19,7 +19,7 @@ let lights = [];
 let environment = null;
 let antiAliasing = 0;
 let superSamplingScale = 2;
-let ambientOcclusionSamples = 0;
+let ambientOcclusionSamples = 500;
 
 function init() {
     // create camera

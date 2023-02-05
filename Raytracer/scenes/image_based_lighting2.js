@@ -13,16 +13,16 @@ let imageHeight = 1080;
 let exposure = 1;
 let backgroundColor = new THREE.Color(0, 0, 0);
 let ambientLight = new THREE.Color(0.01, 0.01, 0.01);
-let maxDepth = 5;
+let maxDepth = 15;
 let camera;
 let shapes = [];
 let lights = [];
 //let environment = 'probes/stpeters_probe.hdr';
 let environment = 'probes/galileo_probe.hdr';
 
-let antiAliasing = 0;
+let antiAliasing = 2;
 let superSamplingScale = 2;
-let ambientOcclusionSamples = 100;
+let ambientOcclusionSamples = 0;
 
 
 function init() {
