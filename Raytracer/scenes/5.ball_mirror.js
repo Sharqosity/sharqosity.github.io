@@ -6,8 +6,8 @@ import { Sphere } from './../shape.js';
 
 
 
-let imageWidth = 480;
-let imageHeight = 480;
+let imageWidth = 640;
+let imageHeight = 640;
 let exposure = 1;
 let backgroundColor = new THREE.Color(0, 0, 0);
 let ambientLight = new THREE.Color(0.01, 0.01, 0.01);
@@ -17,7 +17,7 @@ let shapes = [];
 let lights = [];
 
 
-let environment = 'probes/building_probe.hdr';;
+let environment = 'probes/stpeters_probe.hdr';;
 let antiAliasing = 2;
 let superSamplingScale = 2;
 let ambientOcclusionSamples = 500;

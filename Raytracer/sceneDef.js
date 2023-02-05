@@ -1,6 +1,5 @@
 export class sceneDef {
     constructor(imageWidth, imageHeight, exposure, backgroundColor, ambientLight, maxDepth, camera, shapes, lights, environment, antiAliasing, superSamplingScale, ambientOcclusionSamples) {
-
         this.imageWidth = imageWidth;
         this.imageHeight = imageHeight;
         this.exposure = exposure;
@@ -15,5 +14,4 @@ export class sceneDef {
         this.superSamplingScale = superSamplingScale;
         this.ambientOcclusionSamples = ambientOcclusionSamples;
     }
-
 }

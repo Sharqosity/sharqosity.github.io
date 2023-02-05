@@ -35,15 +35,11 @@ let lights;
 let environment;
 let tex;
 let texData;
-
-
 let antiAliasing;
 let superSamplingScale;
 let ambientOcclusionSamples;
 
-
 export function render(sceneDef) {
-
 	imageWidth = sceneDef.imageWidth;
 	imageHeight = sceneDef.imageHeight;
 	exposure = sceneDef.exposure;
@@ -102,7 +98,6 @@ export function render(sceneDef) {
 							let ray = camera.getCameraRay(newX, newY);
 
 							color.add(raytracing(ray, 0));
-
 						}
 					}
 					color.multiplyScalar(1 / (superSamplingScale * superSamplingScale));
@@ -112,7 +107,6 @@ export function render(sceneDef) {
 					let color = raytracing(ray, 0);
 					setPixelColor(pixels, idx, color);
 				}
-
 			}
 		}
 		row += chunksize;  // non-blocking j loop
@@ -123,7 +117,6 @@ export function render(sceneDef) {
 			ctx2d.putImageData(image, 0, 0); // display final image
 			document.getElementById('status').innerHTML = 'Done.';
 		}
-
 
 		//Function to draw the loaded environment map for testing
 		/*
@@ -154,7 +147,6 @@ export function render(sceneDef) {
 		}
 		ctx2d.putImageData(image, 0, 0);
 		*/
-
 	}
 
 	if (environment !== null) {
@@ -172,7 +164,6 @@ export function render(sceneDef) {
 	}
 }
 
-
 /* Trace ray in the scene and return color of ray. 'depth' is the current recursion depth.
  * If intersection material has non-null kr or kt, perform recursive ray tracing. */
 function raytracing(ray, depth) {
@@ -189,7 +180,6 @@ function raytracing(ray, depth) {
 		} else { //Background color
 			return backgroundColor;
 		}
-
 	} else { //Shade
 		if ((isect.material.kr || isect.material.kt) && depth < maxDepth) {
 			if (isect.material.kr) { //reflect
@@ -205,28 +195,20 @@ function raytracing(ray, depth) {
 					color.add(raytracing(r, depth + 1).multiply(isect.material.kt));
 				}
 			}
-
 		} else {
 			return shading(ray, isect);
-
 		}
-
 	}
-
 	return color;
 }
-
-
 
 /* Compute and return shading color given a ray and the intersection point structure. */
 function shading(ray, isect) {
 	let color = new THREE.Color(0, 0, 0);
-
 	//Add ambient light
 	if (isect.material.ka) {
 		color.add(isect.material.ka.clone().multiply(ambientLight));
 	}
-
 	//Diffuse and specular contribution from lights
 	let material = isect.material;
 	let n = isect.normal.clone();
@@ -255,7 +237,6 @@ function shading(ray, isect) {
 					.multiplyScalar(Math.max(n.clone().dot(l), 0))
 			);
 		}
-
 		//Specular/phong
 		if (material.ks) {
 			color.add(
@@ -269,9 +250,9 @@ function shading(ray, isect) {
 
 	//Ambient occlusion
 	let AO_factor = new THREE.Color(0, 0, 0);
-	let successfulSamples = 0;
+	//let successfulSamples = 0;
 	for (let i = 0; i < ambientOcclusionSamples; i = i + 1) {
-	//while (successfulSamples < ambientOcclusionSamples) {
+		//while (successfulSamples < ambientOcclusionSamples) {
 		/*
 		//Random spherical coordinates
 		let theta = Math.acos(1 - 2 * Math.random());
@@ -284,10 +265,10 @@ function shading(ray, isect) {
 		let direction = new THREE.Vector3(x, y, z);
 		*/
 
-		const u = (Math.random() - 0.5) * 2;
-		const t = Math.random() * Math.PI * 2;
-		const f = Math.sqrt(1 - u ** 2);
-		let randomDirection = new THREE.Vector3(f * Math.cos(t), f * Math.sin(t), u);
+		let randomDirection = getRandomDirection();
+		while (randomDirection.clone().dot(isect.normal) < 0) {
+			randomDirection = getRandomDirection();
+		}
 
 		//if (direction.dot(isect.normal) > 0) {
 		let AO_ray = new Ray(isect.position, randomDirection);
@@ -313,7 +294,6 @@ function shading(ray, isect) {
 							.multiplyScalar(Math.max(n.clone().dot(l), 0))
 					);
 				}
-
 				//Specular/phong
 				if (material.ks) {
 					addColor.add(
@@ -335,8 +315,8 @@ function shading(ray, isect) {
 
 	}
 	if (ambientOcclusionSamples > 0) {
-		let gamma = 1.8;
-
+		//let gamma = 2.2;
+		AO_factor.multiplyScalar(2);
 		AO_factor.multiplyScalar(1 / ambientOcclusionSamples);
 		//console.log(AO_factor);
 		//AO_factor = AO_factor / ambientOcclusionSamples;
@@ -345,17 +325,21 @@ function shading(ray, isect) {
 			//console.log(AO_factor);
 		}
 		if (environment === null) {
-			AO_factor.setRGB(Math.pow(Math.min(AO_factor.r, 1.0), gamma), Math.pow(Math.min(AO_factor.g, 1.0), gamma), Math.pow(Math.min(AO_factor.b, 1.0), gamma));
+			//AO_factor.setRGB(Math.pow(Math.min(AO_factor.r, 1.0), 1/gamma), Math.pow(Math.min(AO_factor.g, 1.0), 1/gamma), Math.pow(Math.min(AO_factor.b, 1.0), 1/gamma));
 			color.multiply(AO_factor);
 		} else {
 			//AO_factor.setRGB(Math.pow(Math.min(AO_factor.r, 1.0), gamma), Math.pow(Math.min(AO_factor.g, 1.0), gamma), Math.pow(Math.min(AO_factor.b, 1.0), gamma));
 			color.add(AO_factor);
 		}
-
 	}
-
-
 	return color;
+}
+
+function getRandomDirection() {
+	const u = (Math.random() - 0.5) * 2;
+	const t = Math.random() * Math.PI * 2;
+	const f = Math.sqrt(1 - u ** 2);
+	return new THREE.Vector3(f * Math.cos(t), f * Math.sin(t), u);
 }
 
 function getFromEnv(x, y, z) {
@@ -371,13 +355,11 @@ function getFromEnv(x, y, z) {
 	let u = x * r;
 	let v = -1 * y * r;
 
-
 	let w = texData.width;
 	let h = texData.height;
 	//convert uv (normalized coords) to pixel location
 	let uPixel = Math.floor((u + 1) * w / 2);
 	let vPixel = Math.floor((v + 1) * h / 2);
-
 
 	//sample the image
 	let idx = 4 * (vPixel * w + uPixel);
@@ -401,11 +383,9 @@ function getFromEnv(x, y, z) {
 	}
 
 	let color = new THREE.Color(red, green, blue);
-
 	return color;
 
 }
-
 
 //Reconstruct floating point value from mantissa and exponent
 function ldexp(mantissa, exponent) {
@@ -416,7 +396,6 @@ function ldexp(mantissa, exponent) {
 	}
 	return result;
 }
-
 
 /* Compute intersection of ray with scene shapes.
  * Return intersection structure (null if no intersection). */
@@ -463,14 +442,12 @@ function refract(l, n, ior) {
 	return r;
 }
 
-
-
 /* Convert floating-point color to integer color and assign it to the pixel array. */
 function setPixelColor(pixels, index, color) {
 	pixels[index + 0] = pixelProcess(color.r);
 	pixels[index + 1] = pixelProcess(color.g);
 	pixels[index + 2] = pixelProcess(color.b);
-	pixels[index + 3] = 255; // alpha channel is always 255*/
+	pixels[index + 3] = 255; // alpha channel is always 255
 }
 
 /* Multiply exposure, clamp pixel value, then apply gamma correction. */

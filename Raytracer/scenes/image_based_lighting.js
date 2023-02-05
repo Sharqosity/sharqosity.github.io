@@ -19,7 +19,7 @@ let shapes = [];
 let lights = [];
 let environment = 'probes/grace_probe.hdr';
 
-let antiAliasing = 1;
+let antiAliasing = 2;
 let superSamplingScale = 2;
 let ambientOcclusionSamples = 100;
 

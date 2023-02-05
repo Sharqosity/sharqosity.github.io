@@ -18,7 +18,7 @@ let lights = [];
 let environment = null;
 
 
-let antiAliasing = 0;
+let antiAliasing = 2;
 let superSamplingScale = 2;
 let ambientOcclusionSamples = 0;
 

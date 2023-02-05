@@ -20,7 +20,7 @@ let lights = [];
 let environment = null;
 let antiAliasing = 0;
 let superSamplingScale = 0;
-let ambientOcclusionSamples = 500;
+let ambientOcclusionSamples = 0;
 
 function init() {
     // create camera
@@ -56,7 +56,7 @@ function init() {
 
     // create glass sphere
     shapes.push(new Sphere(new THREE.Vector3(-1, 0, 2), radius,
-        GlassMaterial(new THREE.Color(0, 0, 0), new THREE.Color(.75, .75, .75), 1.5)));
+        GlassMaterial(new THREE.Color(0, 0, 0), new THREE.Color(.75, .75, .75), 1.8)));
 
     //mirror sphere
     shapes.push(new Sphere(new THREE.Vector3(-4, 1.25, -3), 2.5, mirrorSphere));

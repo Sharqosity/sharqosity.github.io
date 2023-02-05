@@ -7,7 +7,7 @@ import { Plane } from '../shape.js';
 import { PointLight } from '../light.js';
 
 
-let imageWidth = 1280;
+let imageWidth = 960;
 let imageHeight = 720;
 let exposure = 1;
 let backgroundColor = new THREE.Color(0, 0, 0);
@@ -26,12 +26,12 @@ let ambientOcclusionSamples = 0;
 function init() {
     // create camera
     let eye = new THREE.Vector3(0, 4, 5);
-    let target = new THREE.Vector3(2, 1, 0);
+    let target = new THREE.Vector3(1.25, -0.25, 0);
     let up = new THREE.Vector3(0, 1, 0);
-    let fov = 60;
+    let fov = 55;
     camera = new PinholeCamera(eye, target, up, fov, imageWidth / imageHeight);
 
-    // create a point light
+    // create point lights
     lights.push(new PointLight(new THREE.Vector3(-2, 5, -2), new THREE.Color(10, 2, 1)));
     lights.push(new PointLight(new THREE.Vector3(2, 5, -2), new THREE.Color(2, 8, 1)));
     lights.push(new PointLight(new THREE.Vector3(0, 5, 1), new THREE.Color(2, 1, 10)));

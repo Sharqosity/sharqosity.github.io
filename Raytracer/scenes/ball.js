@@ -8,9 +8,9 @@ import { Plane } from '../shape.js';
 import { PointLight } from '../light.js';
 
 
-let imageWidth = 320;
-let imageHeight = 240;
-let exposure = 1;
+let imageWidth = 640;
+let imageHeight = 480;
+let exposure = 1.2;
 let backgroundColor = new THREE.Color(0, 0, 0);
 let ambientLight = new THREE.Color(0.1, 0.1, 0.1);
 
@@ -23,9 +23,9 @@ let environment = null;
 //let environment = 'probes/stpeters_probe.hdr';
 
 
-let antiAliasing = 0;
+let antiAliasing = 2;
 let superSamplingScale = 2;
-let ambientOcclusionSamples = 4;
+let ambientOcclusionSamples = 128;
 
 function init() {
     // create camera

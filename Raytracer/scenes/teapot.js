@@ -6,8 +6,8 @@ import { shapeLoadOBJ } from '../shape.js';
 import { Plane } from '../shape.js';
 import { PointLight } from '../light.js';
 
-let imageWidth = 400;
-let imageHeight = 400;
+let imageWidth = 512;
+let imageHeight = 512;
 let exposure = 1;
 let backgroundColor = new THREE.Color(0, 0, 0);
 let ambientLight = new THREE.Color(0.03, 0.03, 0.03);
@@ -16,9 +16,10 @@ let camera;
 let shapes = [];
 let lights = [];
 
-let environment = 'probes/stpeters_probe.hdr';
+//let environment = 'probes/stpeters_probe.hdr';
+let environment = null;
 
-let antiAliasing = 0;
+let antiAliasing = 2;
 let superSamplingScale = 2;
 let ambientOcclusionSamples = 0;
 

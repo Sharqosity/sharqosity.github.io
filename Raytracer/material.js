@@ -23,7 +23,7 @@ function DiffuseMaterial(ka, kd) {
 	let m = new Material();
 	m.ka = ka.clone();
 	m.kd = kd.clone();
-	return m;	
+	return m;
 }
 
 function PhongMaterial(ka, kd, ks, p) {

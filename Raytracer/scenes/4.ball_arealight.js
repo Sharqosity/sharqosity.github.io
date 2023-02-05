@@ -19,7 +19,7 @@ let lights = [];
 let environment = null;
 let antiAliasing = 0;
 let superSamplingScale = 2;
-let ambientOcclusionSamples = 500;
+let ambientOcclusionSamples = 0;
 
 function init() {
     // create camera

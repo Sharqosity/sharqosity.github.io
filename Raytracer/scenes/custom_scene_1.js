@@ -11,7 +11,7 @@ let imageHeight = 480;
 let exposure = 1;
 let backgroundColor = new THREE.Color(0, 0, 0);
 let ambientLight = new THREE.Color(0.01, 0.01, 0.01);
-let maxDepth = 5;
+let maxDepth = 9;
 let camera;
 let shapes = [];
 let lights = [];

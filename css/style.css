@@ -2,3 +2,7 @@ img.profile-image  {
     image-rendering: pixelated;
     display: block;
 }
+
+body {
+    text-size-adjust: none;
+}
