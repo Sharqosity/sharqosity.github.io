@@ -1,6 +1,5 @@
-img.profile-image  {
+img.header-image  {
     image-rendering: pixelated;
-    display: block;
 }
 
 body {
